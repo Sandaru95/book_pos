@@ -1,0 +1,71 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    background-color: lightblue;
+    overflow: hidden;
+    user-select: none;
+}
+#title-section{
+    color: white;
+    text-align: center;
+    padding: 40px;
+    background-color: midnightblue;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+#side-section{
+    display: inline-block;
+    padding: 10px;
+    height: 100%;
+    background-color: rgb(185, 217, 228);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 24px;
+    color: midnightblue;
+    width: 20%;
+    text-align: center;
+}
+#side-section div{
+    background-color: #fff;
+    margin: 20px;
+    font-size: 24px;
+    padding: 20px;
+    cursor: pointer;
+}
+#rest-section{
+    position: absolute;
+    width: 75%;
+    height: 100%;
+    display: inline-block;
+}
+#rest-section select{
+    margin: 10px;
+    border: 0;
+    padding: 5px 15px;
+    font-size: 18px;
+    border-radius: 5px;
+}
+#rest-section .backend-btn{
+    width: 15%;
+    margin: 20px 50px;
+    display: inline-block;
+    background-color: white;
+    color: black;
+    height: 17%;
+    text-align: center;
+    border-radius: 2px;
+    padding: 10px;
+    transition: ease-in 50ms;
+}
+#rest-section .backend-btn:hover{
+    cursor: pointer;
+    background-color: rgb(214, 214, 214);
+}
+#rest-section .backend-btn img{
+    width: 60%;
+}
+#rest-section .backend-btn p{
+    font-size: 16px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: rgb(65, 93, 218);
+}
