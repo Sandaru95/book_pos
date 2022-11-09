@@ -1,0 +1,82 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    background-color: lightblue;
+    padding: 2%;
+}
+h4{
+    color: rgb(0, 157, 255);
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+}
+input{
+    border: 0;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 5px;
+}
+#item_code_div{
+    margin-top: 20px;
+    width: 40%;
+    display: inline-block;
+}
+#item_code_div input{
+    width: 100%;
+}
+#isbn_number_div{
+    width: 40%;
+    display: inline-block;
+}
+#isbn_number_div input{
+    width: 100%;
+}
+#price_div{
+    width: 18%;
+    display: inline-block;
+}
+#price_div input{
+    width: 100%;
+}
+#title_div{
+    margin: 10px 0;
+    width: 50%;
+}
+#title_div input{
+    width: 100%;
+}
+#publisher_div{
+    margin: 10px 0;
+    width: 50%;
+}
+#publisher_div input{
+    width: 100%;
+}
+#author_div{
+    margin: 10px 0;
+    width: 50%;
+}
+#author_div input{
+    width: 100%;
+}
+#booktype_div{
+    margin: 10px 0;
+    width: 50%;
+}
+#booktype_div input{
+    width: 100%;
+}
+#btns{
+    width: 100%;
+}
+#btns button{
+    border: 0;
+    padding: 10px;
+    font-size: 18px;
+    width: 18%;
+    display: inline-block;
+    margin: 0 5px;
+    cursor: pointer;
+}

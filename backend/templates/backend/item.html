@@ -1,0 +1,70 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'backend/item.css' %}">
+</head>
+<body>
+    <h4>Items</h4>
+    <div id="item_code_div">
+        <input list="item_codes" name="item_code" placeholder="Item Code" oninput="itemCodeSelected()" autofocus>
+        <datalist id="item_codes">
+            <!-- <option value="Chrome"> -->
+        </datalist>
+    </div>
+    <div id="isbn_number_div">
+        <input list="isbn_number" name="isbn_number" placeholder="ISBN Number" oninput="isbnNoSelected()">
+        <datalist id="isbn_number">
+            <!-- <option value="Chrome"> -->
+        </datalist>
+    </div>
+    <div id="price_div">
+        <input type="number" name="price" placeholder="Price">
+    </div>
+    <div id="title_div">
+        <input list="title" name="title" placeholder="Title" oninput="titleSelected()">
+        <datalist id="title">
+            <!-- <option value="Chrome"> -->
+        </datalist>
+    </div>
+    <div id="publisher_div">
+        <input list="publisher" name="publisher" placeholder="Publisher">
+        <datalist id="publisher">
+            <!-- <option value="Chrome"> -->
+        </datalist>
+    </div>
+    <div id="author_div">
+        <input list="author" name="author" placeholder="Author">
+        <datalist id="author">
+            <!-- <option value="Chrome"> -->
+        </datalist>
+    </div>
+    <div id="booktype_div">
+        <input list="booktype" name="booktype" placeholder="Book Type" value="Common">
+        <datalist id="booktype">
+            <!-- <option value="Chrome"> -->
+        </datalist>
+    </div>
+    <div id="btns">
+        <button onclick="saveItem()">Save</button>
+        <button onclick="updateItem()">Update</button>
+        <button onclick="deleteItem()">Delete</button>
+        <button onclick="clearInputs()">Clear</button>
+        <button onclick="windowClose()">Close</button>
+    </div>
+    <!-- CSRF TOKEN -->
+    {% csrf_token %}
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script>
+        let items = [
+            {% for item in items %}
+            {'title': '{{item.title}}', 'author':'{{ item.author.name }}', 'publisher': '{{ item.publisher.name }}','book_type': '{{ item.book_type.name }}', 'price': '{{ item.price }}', 'item_code': '{{ item.item_code }}', 'isbn_no': '{{ item.isbn_no }}'},
+            {% endfor %}
+        ];
+    </script>
+    <script src="{% static 'backend/item.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Author</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'backend/author.css' %}">
+</head>
+<body>
+    <h4>Authors</h4>
+    <div id="author_name_div">
+        <input list="author_name" name="author_name" placeholder="Author Name" autofocus oninput="authorNameSelected()">
+        <datalist id="author_name">
+            <!-- <option value="Chrome"> -->
+        </datalist>
+    </div>
+    <div id="author_tel_div">
+        <input list="author_tel" name="author_tel" placeholder="Author Tel">
+        <datalist id="author_tel">
+            <!-- <option value="Chrome"> -->
+        </datalist>
+    </div>
+    <div id="btns">
+        <button onclick="saveAuthor()">Save</button>
+        <button onclick="updateAuthor()">Update</button>
+        <button onclick="deleteAuthor()">Delete</button>
+        <button onclick="clearInputs()">Clear</button>
+        <button onclick="windowClose()">Close</button>
+    </div>
+    <!-- CSRF TOKEN -->
+    {% csrf_token %}
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script>
+        let authors = [
+            {% for author in authors %}
+            {'name': '{{author.name}}', 'tel':'{{ author.tel }}'},
+            {% endfor %}
+        ];
+    </script>
+    <script src="{% static 'backend/author.js' %}"></script>
+</body>
+</html>
