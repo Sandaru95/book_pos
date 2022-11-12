@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse
 from django.views.generic import TemplateView, View
 from .models import Book, Author, Publisher, BookType, Location, Item
+import json
 
 class BackendView(TemplateView):
     template_name = "backend/backend.html"
@@ -186,7 +187,16 @@ class AddStockView(TemplateView):
         context['publishers'] = Publisher.objects.all()
         context['book_types'] = BookType.objects.all()
         return context
-
+class AddStockSaveView(View):
+    def post(self, request):
+        items = json.loads(request.POST['items'])
+        for item in items:
+            location = request.user.cashier.location
+            book = Book.objects.get(item_code=item['item_code'])
+            match = Item.objects.filter(location=location, book=book)[0]
+            match.qty += int(item['qty'])
+            match.save()
+        return HttpResponse('success')
 class LocationTransferView(TemplateView):
     template_name = "backend/ex.html"
 

@@ -28,13 +28,16 @@
     </div>
     <div id="item_table_div">
         <table id="item_table">
-            <tr>
-                <th>Item Code</th>
-                <th>Item Name</th>
-                <th>QTY</th>
-                <th>Unit Price</th>
-                <th>Price</th>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Item Code</th>
+                    <th>Item Name</th>
+                    <th>QTY</th>
+                    <th>Unit Price</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody id="item_table_body"></tbody>
         </table>
     </div>
     <div id="item_code_div">
@@ -75,7 +78,6 @@
     </div>
     <div id="btns">
         <button onclick="addItem()">Add</button>
-        <button onclick="deleteItem()">Delete</button>
         <button onclick="saveStock()">Save</button>
         <button onclick="clearInputs()">Clear</button>
         <button onclick="windowClose()">Close</button>
@@ -106,6 +108,7 @@
         ];
         let items = [];
     </script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{% static 'backend/js/add_stock.js' %}"></script>
 </body>
 </html>

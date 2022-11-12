@@ -33,6 +33,8 @@ urlpatterns = [
     path("stock_balance/", views.StockBalanceView.as_view(), name="stock_balance"),
 
     path("add_stock/", views.AddStockView.as_view(), name="add_stock"),
+    path("add_stock/save/", views.AddStockSaveView.as_view(), name="add_stock_save"),
+
     path("location_transfer/", views.LocationTransferView.as_view(), name="location_transfer"),
     path("invoice/", views.InvoiceView.as_view(), name="invoice"),
     path("inquiry/", views.InquiryView.as_view(), name="inquiry"),

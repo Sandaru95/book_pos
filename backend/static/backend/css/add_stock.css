@@ -140,6 +140,7 @@ input{
 }
 
 #item_table tr:nth-of-type(even) {
+    color: #111;
     background-color: #f3f3f3;
 }
 
