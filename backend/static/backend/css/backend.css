@@ -12,6 +12,7 @@ body{
     text-align: center;
     padding: 40px;
     background-color: midnightblue;
+    width: 100%;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 #side-section{

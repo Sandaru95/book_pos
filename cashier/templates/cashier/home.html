@@ -1,0 +1,34 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting Started</title>
+  {% load static %}
+  <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+  <link rel="stylesheet" href="{% static 'cashier/css/home.css' %}">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <h3>Nishantha Publishers</h3>
+  <img src="{% static 'cashier/img/logo.png' %}">
+  <div class="loader book">
+    <figure class="page"></figure>
+    <figure class="page"></figure>
+    <figure class="page"></figure>
+  </div>
+  <h1>Loading</h1>
+  <script>
+    setTimeout(() => {
+        const h1 = document.getElementsByTagName('h1')[0];
+        h1.innerText = "Press Any Key to Continue";
+        document.addEventListener('keypress', () => {
+          window.localStorage.setItem('loaded', true);
+          window.location.replace("/cashier/login/");
+        });
+      }, 5000);
+  </script>
+</body>
+</html>

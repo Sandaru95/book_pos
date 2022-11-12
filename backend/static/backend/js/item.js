@@ -65,8 +65,7 @@ function onLoadLoadValues(){
     // Publisher
     let publisher = document.getElementById('publisher');
     let publisherInner = '';
-    let publisherArray = items.map(({ publisher }) => publisher);
-    publisherArray = removeDuplicates(publisherArray);
+    let publisherArray = publishers.map(({ name }) => name);
     for (let i of publisherArray){
         publisherInner += `<option value="${i}">`;
     };
@@ -74,8 +73,7 @@ function onLoadLoadValues(){
     // Author
     let author = document.getElementById('author');
     let authorInner = '';
-    let authorArray = items.map(({ author }) => author);
-    authorArray = removeDuplicates(authorArray);
+    let authorArray = authors.map(({ name }) => name);
     for (let i of authorArray){
         authorInner += `<option value="${i}">`;
     };
@@ -83,8 +81,7 @@ function onLoadLoadValues(){
     // Book Type
     let bookType = document.getElementById('booktype');
     let bookTypeInner = '';
-    let bookTypeArray = items.map(({ book_type }) => book_type);
-    bookTypeArray = removeDuplicates(bookTypeArray);
+    let bookTypeArray = book_types.map(({ name }) => name);
     for (let i of bookTypeArray){
         bookTypeInner += `<option value="${i}">`
     };

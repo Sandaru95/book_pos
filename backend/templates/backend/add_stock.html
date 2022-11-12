@@ -1,0 +1,111 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Stock</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'backend/css/add_stock.css' %}">
+</head>
+<body>
+    <div id="location_div">
+        <input list="location" name="location" placeholder="Location Name" autofocus>
+        <datalist id="location">
+            <!-- <option value="Chrome"> -->
+        </datalist>
+    </div>
+    <div id="publisher_div">
+        <input list="publisher" name="publisher" placeholder="Publisher Name">
+        <datalist id="publisher">
+            <!-- <option value="Chrome"> -->
+        </datalist>
+    </div>
+    <div id="invoice_div">
+        <input list="invoice" name="invoice" placeholder="Invoice Number">
+        <datalist id="invoice">
+            <!-- <option value="Chrome"> -->
+        </datalist>
+    </div>
+    <div id="item_table_div">
+        <table id="item_table">
+            <tr>
+                <th>Item Code</th>
+                <th>Item Name</th>
+                <th>QTY</th>
+                <th>Unit Price</th>
+                <th>Price</th>
+            </tr>
+        </table>
+    </div>
+    <div id="item_code_div">
+        <input list="item_code" name="item_code" placeholder="Item Code" oninput="itemCodeSelected()">
+        <datalist id="item_code">
+            <!-- <option value="Chrome"> -->
+        </datalist>
+    </div>
+    <div id="item_name_div">
+        <input list="item_name" name="item_name" placeholder="Item Name">
+        <datalist id="item_name">
+            <!-- <option value="Chrome"> -->
+        </datalist>
+    </div> 
+    <div id="item_qty_div">
+        <input list="item_qty" name="item_qty" placeholder="QTY">
+        <datalist id="item_qty">
+            <!-- <option value="Chrome"> -->
+        </datalist>
+    </div>
+    <div id="subtotal_div">
+        <input list="subtotal" name="subtotal" placeholder="Subtotal">
+        <datalist id="subtotal">
+            <!-- <option value="Chrome"> -->
+        </datalist>
+    </div>
+    <div id="discount_div">
+        <input list="discount" name="discount" placeholder="%">
+        <datalist id="discount">
+            <!-- <option value="Chrome"> -->
+        </datalist>
+    </div>
+    <div id="total_div">
+        <input list="total" name="total" placeholder="Rs.">
+        <datalist id="total">
+            <!-- <option value="Chrome"> -->
+        </datalist>
+    </div>
+    <div id="btns">
+        <button onclick="addItem()">Add</button>
+        <button onclick="deleteItem()">Delete</button>
+        <button onclick="saveStock()">Save</button>
+        <button onclick="clearInputs()">Clear</button>
+        <button onclick="windowClose()">Close</button>
+    </div>
+    <!-- CSRF TOKEN -->
+    {% csrf_token %}
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script>
+        let books = [
+            {% for book in books %}
+            {'title': '{{book.title}}', 'author':'{{ book.author.name }}', 'publisher': '{{ book.publisher.name }}','book_type': '{{ book.book_type.name }}', 'price': '{{ book.price }}', 'item_code': '{{ book.item_code }}', 'isbn_no': '{{ book.isbn_no }}'},
+            {% endfor %}
+        ];
+        let authors = [
+            {% for author in authors %}
+            {'name': '{{author.name}}'},
+            {% endfor %}
+        ];
+        let publishers = [
+            {% for publisher in publishers %}
+            {'name': '{{publisher.name}}'},
+            {% endfor %}
+        ];
+        let book_types = [
+            {% for book_type in book_types %}
+            {'name': '{{book_type.name}}'},
+            {% endfor %}
+        ];
+        let items = [];
+    </script>
+    <script src="{% static 'backend/js/add_stock.js' %}"></script>
+</body>
+</html>

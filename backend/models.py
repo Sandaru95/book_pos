@@ -38,10 +38,10 @@ class Location(models.Model):
     def __str__(self):
         return self.name
 
-class Cashier(models.Model):
-    name = models.CharField(max_length=50)
-    username = models.CharField(max_length=30)
-    password = models.CharField(max_length=50)
+class Item(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    qty = models.IntegerField(default=0)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return f"{self.book.title}:{self.qty}:{self.location.name}"

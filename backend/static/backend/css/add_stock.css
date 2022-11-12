@@ -1,0 +1,148 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    background-color: lightblue;
+    padding: 2%;
+}
+h4{
+    color: rgb(0, 157, 255);
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+}
+input{
+    border: 0;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+#location_div{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 35%;
+    display: inline-block;
+}
+#location_div input{
+    width: 100%;
+}
+#publisher_div{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 35%;
+    display: inline-block;
+}
+#publisher_div input{
+    width: 100%;
+}
+#invoice_div{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 28%;
+    display: inline-block;
+}
+#invoice_div input{
+    width: 100%;
+}
+/* Latter Part */
+#item_code_div{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 20%;
+    display: inline-block;
+}
+#item_code_div input{
+    width: 100%;
+}
+#item_name_div{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 30%;
+    display: inline-block;
+}
+#item_name_div input{
+    width: 100%;
+}
+#item_qty_div{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 5%;
+    display: inline-block;
+}
+#item_qty_div input{
+    width: 100%;
+}
+#subtotal_div{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 17%;
+    display: inline-block;
+}
+#subtotal_div input{
+    width: 100%;
+}
+#discount_div{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 5%;
+    display: inline-block;
+}
+#discount_div input{
+    width: 100%;
+}
+#total_div{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 20%;
+    display: inline-block;
+}
+#total_div input{
+    width: 100%;
+}
+#btns{
+    width: 100%;
+}
+#btns button{
+    border: 0;
+    padding: 10px;
+    font-size: 18px;
+    width: 19%;
+    display: inline-block;
+    margin: 0 5px;
+    cursor: pointer;
+}
+#item_table_div{
+    width: 100%;
+    height: 70%;
+    overflow: auto;
+}
+#item_table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    width: 100%;
+    font-family: sans-serif;
+    
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+#item_table tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+#item_table th, td {
+    padding: 12px 15px;
+}
+#item_table tr {
+    border-bottom: thin solid #dddddd;
+}
+
+#item_table tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+#item_table tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}

@@ -38,24 +38,6 @@ function deleteBookType(){
         }
     });
 };
-
-function updateBookType(){
-    if (inputsAllFilled()){
-        data = {
-            new_name: bookTypeNameInput.value, 
-            csrfmiddlewaretoken: getCSRFTokenValue()
-        };
-        $.ajax({ type: "POST", url: "/backend/book_type/update/",
-            data: data,
-            success: function(response) {
-                if(response == "success") {
-                    clearInputs();
-                    onLoadLoadValues();
-                }
-            }
-        });
-    };
-};
 function onLoadLoadValues(){
     // Name
     let bookTypeName = document.getElementById('book_type_name');

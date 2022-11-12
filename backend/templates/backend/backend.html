@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Backend</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'backend/backend.css'%}">
+    <link rel="stylesheet" href="{% static 'backend/css/backend.css'%}">
 </head>
 <body>
     <section id="title-section">
@@ -14,69 +14,79 @@
     <section id="side-section">
         <h4>Management</h4>
         <div>Frontend</div>
-        <div>Account Management</div>
-        <div>Logout</div>
+        <div onclick="navigateTo('/admin/', 1500, 800)">Admin</div>
+        <div onclick="navigate('/cashier/logout/')">Logout</div>
     </section>
     <section id="rest-section">
-        <select>
-            <option value="option1">Location 1</option>
-            <option value="option2">Location 2</option>
-            <option value="option3">Location 3</option>
-        </select>
+        <select id="rest-section-locations"></select>
         <br>
-        <div class="backend-btn" onclick="navigateTo('{% url 'backend:item' %}')">
-            <img src="{% static 'backend/item.png' %}">
+        <div class="backend-btn" onclick="navigateTo('{% url 'backend:item' %}', 800,800)">
+            <img src="{% static 'backend/img/item.png' %}">
             <p>Items</p>
         </div>
-        <div class="backend-btn" onclick="navigateTo('{% url 'backend:author' %}')">
-            <img src="{% static 'backend/author.png' %}">
+        <div class="backend-btn" onclick="navigateTo('{% url 'backend:author' %}', 800,800)">
+            <img src="{% static 'backend/img/author.png' %}">
             <p>Authors</p>
         </div>
-        <div class="backend-btn" onclick="navigateTo('{% url 'backend:publisher' %}')">
-            <img src="{% static 'backend/publisher.png' %}">
+        <div class="backend-btn" onclick="navigateTo('{% url 'backend:publisher' %}', 800,800)">
+            <img src="{% static 'backend/img/publisher.png' %}">
             <p>Publishers</p>
         </div>
-        <div class="backend-btn" onclick="navigateTo('{% url 'backend:book_type' %}')">
-            <img src="{% static 'backend/book_type.png' %}">
+        <div class="backend-btn" onclick="navigateTo('{% url 'backend:book_type' %}', 800,800)">
+            <img src="{% static 'backend/img/book_type.png' %}">
             <p>Book Type</p>
         </div>
-        <div class="backend-btn" onclick="navigateTo('{% url 'backend:location' %}')">
-            <img src="{% static 'backend/location.png' %}">
+        <div class="backend-btn" onclick="navigateTo('{% url 'backend:location' %}', 800,800)">
+            <img src="{% static 'backend/img/location.png' %}">
             <p>Location</p>
         </div>
-        <div class="backend-btn" onclick="navigateTo('{% url 'backend:cashier' %}')">
-            <img src="{% static 'backend/cashier.png' %}">
-            <p>Cashier</p>
-        </div>
-        <div class="backend-btn" onclick="navigateTo('{% url 'backend:sales_report' %}')">
-            <img src="{% static 'backend/sales.png' %}">
+        <div class="backend-btn" onclick="navigateTo('{% url 'backend:sales_report' %}', 800,800)">
+            <img src="{% static 'backend/img/sales.png' %}">
             <p>Sales Report</p>
         </div>
-        <div class="backend-btn" onclick="navigateTo('{% url 'backend:stock_balance' %}')">
-            <img src="{% static 'backend/stock.png' %}">
+        <div class="backend-btn" onclick="navigateTo('{% url 'backend:stock_balance' %}', 800,800)">
+            <img src="{% static 'backend/img/stock.png' %}">
             <p>Stock Balance</p>
         </div>
-        <div class="backend-btn" onclick="navigateTo('{% url 'backend:add_stock' %}')">
-            <img src="{% static 'backend/add_stock.png' %}">
+        <div class="backend-btn" onclick="navigateTo('{% url 'backend:add_stock' %}', 1500,800)">
+            <img src="{% static 'backend/img/add_stock.png' %}">
             <p>Add Stock</p>
         </div>
-        <div class="backend-btn" onclick="navigateTo('{% url 'backend:location_transfer' %}')">
-            <img src="{% static 'backend/location_transfer.png' %}">
+        <div class="backend-btn" onclick="navigateTo('{% url 'backend:location_transfer' %}', 800,800)">
+            <img src="{% static 'backend/img/location_transfer.png' %}">
             <p>Location Transfer</p>
         </div>
-        <div class="backend-btn" onclick="navigateTo('{% url 'backend:invoice' %}')">
-            <img src="{% static 'backend/invoice.png' %}">
+        <div class="backend-btn" onclick="navigateTo('{% url 'backend:invoice' %}', 800,800)">
+            <img src="{% static 'backend/img/invoice.png' %}">
             <p>Invoice</p>
         </div>
-        <div class="backend-btn" onclick="navigateTo('{% url 'backend:inquiry' %}')">
-            <img src="{% static 'backend/inquiry.png' %}">
+        <div class="backend-btn" onclick="navigateTo('{% url 'backend:inquiry' %}', 800,800)">
+            <img src="{% static 'backend/img/inquiry.png' %}">
             <p>Inquiry</p>
         </div>
     </section>
     <script>
-        function navigateTo(url){
-            window.open(url, "_blank", "toolbar=no,scrollbars=no,resizable=yes,top=800,left=800,width=800,height=800");
+        function navigateTo(url, w, h){
+            window.open(url, "_blank", `toolbar=no,scrollbars=no,resizable=yes,top=${(screen.height/2)-(h/2)},left=${(screen.width/2)-(w/2)},width=${w},height=${h}`);
         };
+        function navigate(url){
+            window.location.replace(url);;
+        };
+        let locations = [
+            {% for location in locations %}
+            {'name': '{{location.name}}'},
+            {% endfor %}
+        ];
+        function setLocations(){
+            const locationElem = document.getElementById('rest-section-locations');
+            const defaultLocation = '{{ user.cashier.location.name }}';
+            let locationElemInner = '';
+            locationElemInner += `<option value="${defaultLocation}">${defaultLocation}</option>`;
+            locations.map((l) => {
+                if(l.name != defaultLocation) { locationElemInner += `<option value="${l.name}">${l.name}</option>`;}
+            });
+            locationElem.innerHTML = locationElemInner;
+        };setLocations();
     </script>
 </body>
 </html>

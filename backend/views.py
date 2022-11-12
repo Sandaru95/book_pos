@@ -1,9 +1,14 @@
 from django.shortcuts import render, HttpResponse
 from django.views.generic import TemplateView, View
-from .models import Book, Author, Publisher, BookType
+from .models import Book, Author, Publisher, BookType, Location, Item
 
 class BackendView(TemplateView):
     template_name = "backend/backend.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(BackendView, self).get_context_data(**kwargs)
+        context['locations'] = Location.objects.all()
+        return context
 
 class ItemView(TemplateView):
     template_name = "backend/item.html"
@@ -11,6 +16,9 @@ class ItemView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(ItemView, self).get_context_data(**kwargs)
         context['items'] = Book.objects.all()
+        context['authors'] = Author.objects.all()
+        context['publishers'] = Publisher.objects.all()
+        context['book_types'] = BookType.objects.all()
         return context
 
 class ItemSaveView(View):
@@ -142,10 +150,25 @@ class BookTypeSaveView(View):
         book_type.save()
         return HttpResponse('success')
 class LocationView(TemplateView):
-    template_name = "backend/ex.html"
+    template_name = "backend/location.html"
 
-class CashierView(TemplateView):
-    template_name = "backend/ex.html"
+    def get_context_data(self, **kwargs):
+        context = super(LocationView, self).get_context_data(**kwargs)
+        context['locations'] = Location.objects.all()
+        return context
+
+class LocationSaveView(View):
+    def post(self, request):
+        location = Location()
+        location.name = request.POST['name']
+        location.save()
+        for book in Book.objects.all():
+            item = Item()
+            item.book = book
+            item.location = location
+            item.qty = 0
+            item.save()
+        return HttpResponse('success')
 
 class SalesReportView(TemplateView):
     template_name = "backend/ex.html"
@@ -154,7 +177,15 @@ class StockBalanceView(TemplateView):
     template_name = "backend/ex.html"
 
 class AddStockView(TemplateView):
-    template_name = "backend/ex.html"
+    template_name = "backend/add_stock.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(AddStockView, self).get_context_data(**kwargs)
+        context['books'] = Book.objects.all()
+        context['authors'] = Author.objects.all()
+        context['publishers'] = Publisher.objects.all()
+        context['book_types'] = BookType.objects.all()
+        return context
 
 class LocationTransferView(TemplateView):
     template_name = "backend/ex.html"

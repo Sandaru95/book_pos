@@ -1,0 +1,41 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    background-color: lightblue;
+    padding: 2%;
+}
+h4{
+    color: rgb(0, 157, 255);
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+}
+input{
+    border: 0;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 5px;
+}
+#location_name_div{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 90%;
+    display: inline-block;
+}
+#location_name_div input{
+    width: 100%;
+}
+#btns{
+    width: 100%;
+}
+#btns button{
+    border: 0;
+    padding: 10px;
+    font-size: 18px;
+    width: 18%;
+    display: inline-block;
+    margin: 0 5px;
+    cursor: pointer;
+}

@@ -1,0 +1,35 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'backend/css/location.css' %}">
+</head>
+<body>
+    <h4>Location</h4>
+    <div id="location_name_div">
+        <input list="location_name" name="location_name" placeholder="Location Name" autofocus>
+        <datalist id="location_name">
+            <!-- <option value="Chrome"> -->
+        </datalist>
+    </div>
+    <div id="btns">
+        <button onclick="saveLocation()">Save</button>
+        <button onclick="clearInputs()">Clear</button>
+        <button onclick="windowClose()">Close</button>
+    </div>
+    <!-- CSRF TOKEN -->
+    {% csrf_token %}
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script>
+        let locations = [
+            {% for location in locations %}
+            {'name': '{{location.name}}'},
+            {% endfor %}
+        ];
+    </script>
+    <script src="{% static 'backend/js/location.js' %}"></script>
+</body>
+</html>
