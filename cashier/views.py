@@ -14,7 +14,7 @@ class LoginView(View):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('backend:home')
+            return redirect('frontend:home')
         else:
             return redirect('cashier:home')
 

@@ -30,12 +30,19 @@ urlpatterns = [
     path("location/save/", views.LocationSaveView.as_view(), name="location_save"),
 
     path("sales_report/", views.SalesReportView.as_view(), name="sales_report"),
+
     path("stock_balance/", views.StockBalanceView.as_view(), name="stock_balance"),
+    path("stock_balance/<pk>/", views.StockBalanceViewView.as_view(), name="stock_balance_view"),
 
     path("add_stock/", views.AddStockView.as_view(), name="add_stock"),
     path("add_stock/save/", views.AddStockSaveView.as_view(), name="add_stock_save"),
 
     path("sales_return/", views.SalesReturnView.as_view(), name="sales_return"),
+    path("sales_return/save/", views.SalesReturnSaveView.as_view(), name="sales_return_save"),
+
     path("invoice/", views.InvoiceView.as_view(), name="invoice"),
+    path("invoice/save/", views.InvoiceSaveView.as_view(), name="invoice_save"),
+
     path("inquiry/", views.InquiryView.as_view(), name="inquiry"),
+    path("inquiry/<pk>/", views.InquiryOpenView.as_view(), name="inquiry_open"),
 ]

@@ -13,7 +13,7 @@
     </section>
     <section id="side-section">
         <h4>Management</h4>
-        <div>Frontend</div>
+        <div onclick="navigate('/frontend/')">Frontend</div>
         {% if user.is_staff %}
         <div onclick="navigateTo('/admin/', 1500, 800)">Admin</div>
         {% endif %}
@@ -28,7 +28,7 @@
             <p>Items</p>
         </div>
         {% if user.cashier.invoice_access %}
-        <div class="backend-btn" onclick="navigateTo('{% url 'backend:invoice' %}', 800,800)">
+        <div class="backend-btn" onclick="navigateTo('{% url 'backend:invoice' %}', 1500,800)">
             <img src="{% static 'backend/img/invoice.png' %}">
             <p>Invoice</p>
         </div>
@@ -40,7 +40,7 @@
         </div>
         {% endif %}
         {% if user.cashier.sales_return_access %}
-        <div class="backend-btn" onclick="navigateTo('{% url 'backend:sales_return' %}', 800,800)">
+        <div class="backend-btn" onclick="navigateTo('{% url 'backend:sales_return' %}', 1500,800)">
             <img src="{% static 'backend/img/sales_return.png' %}">
             <p>Sales Return</p>
         </div>
@@ -52,7 +52,7 @@
         </div>
         {% endif %}
         {% if user.cashier.sales_report_access %}
-        <div class="backend-btn" onclick="navigateTo('{% url 'backend:sales_report' %}', 800,800)">
+        <div class="backend-btn" onclick="navigateTo('{% url 'backend:sales_report' %}', 800,1000)">
             <img src="{% static 'backend/img/sales.png' %}">
             <p>Sales Report</p>
         </div>

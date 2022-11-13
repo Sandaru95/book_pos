@@ -1,0 +1,31 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inquiry</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'backend/css/inquiry.css' %}">
+</head>
+<body>
+    {% for inquiry in inquirys %}
+    <div>
+        <button onclick="navigateTo(`/backend/inquiry/{{ inquiry.pk }}/`, 800, 800)">{{ inquiry.no }}</button>
+    </div>
+    {% endfor %}
+    <div></div>
+    <!-- CSRF TOKEN -->
+    {% csrf_token %}
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script>
+        function navigateTo(url, w, h){
+            window.open(url, "_blank", `toolbar=no,scrollbars=no,resizable=yes,top=${(screen.height/2)-(h/2)},left=${(screen.width/2)-(w/2)},width=${w},height=${h}`);
+        };
+        let inquirys = [
+            {% for inquiry in inquirys %}
+            {'no': '{{inquiry.no}}', 'pk':'{{ inquiry.pk }}'},
+            {% endfor %}
+        ];
+    </script>
+</body>
+</html>

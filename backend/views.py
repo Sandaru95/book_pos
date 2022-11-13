@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse
 from django.views.generic import TemplateView, View
-from .models import Book, Author, Publisher, BookType, Location, Item
+from .models import Book, Author, Publisher, BookType, Location, Item, Inquiry
 import json
 
 class BackendView(TemplateView):
@@ -172,10 +172,20 @@ class LocationSaveView(View):
         return HttpResponse('success')
 
 class SalesReportView(TemplateView):
-    template_name = "backend/ex.html"
+    template_name = "backend/sales_report.html"
 
 class StockBalanceView(TemplateView):
-    template_name = "backend/ex.html"
+    template_name = "backend/stock_balance.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(StockBalanceView, self).get_context_data(**kwargs)
+        context['locations'] = Location.objects.all()
+        return context
+
+class StockBalanceViewView(View):
+    def get(self, request, pk):
+        items = Item.objects.filter(location=Location.objects.get(pk=pk))
+        return render(request, 'backend/stock_balance_view.html', {'items': items})
 
 class AddStockView(TemplateView):
     template_name = "backend/add_stock.html"
@@ -196,12 +206,84 @@ class AddStockSaveView(View):
             match = Item.objects.filter(location=request.user.cashier.location, book=book)[0]
             match.qty += int(item['qty'])
             match.save()
+        inquiry = Inquiry()
+        inquiry.content = request.POST['items']
+        inquiry.publisher = Publisher.objects.filter(name=request.POST['publisher'])[0]
+        inquiry.no = request.POST['invoice']
+        inquiry.total = int(request.POST['total'])
+        inquiry.discount = int(request.POST['discount'])
+        inquiry.subtotal = int(request.POST['subtotal'])
+        inquiry.save()
         return HttpResponse('success')
+
 class SalesReturnView(TemplateView):
-    template_name = "backend/ex.html"
+    template_name = "backend/sales_return.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(SalesReturnView, self).get_context_data(**kwargs)
+        context['books'] = Book.objects.all()
+        context['authors'] = Author.objects.all()
+        context['publishers'] = Publisher.objects.all()
+        context['book_types'] = BookType.objects.all()
+        return context
+class SalesReturnSaveView(View):
+    def post(self, request):
+        items = json.loads(request.POST['items'])
+        for item in items:
+            location = request.user.cashier.location
+            book = Book.objects.get(item_code=item['item_code'])
+            match = Item.objects.filter(location=request.user.cashier.location, book=book)[0]
+            match.qty -= int(item['qty'])
+            match.save()
+        inquiry = Inquiry()
+        inquiry.content = request.POST['items']
+        inquiry.publisher = Publisher.objects.filter(name=request.POST['publisher'])[0]
+        inquiry.no = request.POST['invoice']
+        inquiry.total = int(request.POST['total'])
+        inquiry.discount = int(request.POST['discount'])
+        inquiry.subtotal = int(request.POST['subtotal'])
+        inquiry.save()
+        return HttpResponse('success')
 
 class InvoiceView(TemplateView):
-    template_name = "backend/ex.html"
+    template_name = "backend/invoice.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(InvoiceView, self).get_context_data(**kwargs)
+        context['books'] = Book.objects.all()
+        context['authors'] = Author.objects.all()
+        context['publishers'] = Publisher.objects.all()
+        context['book_types'] = BookType.objects.all()
+        return context
+
+class InvoiceSaveView(View):
+    def post(self, request):
+        items = json.loads(request.POST['items'])
+        for item in items:
+            location = request.user.cashier.location
+            book = Book.objects.get(item_code=item['item_code'])
+            match = Item.objects.filter(location=request.user.cashier.location, book=book)[0]
+            match.qty -= int(item['qty'])
+            match.save()
+        inquiry = Inquiry()
+        inquiry.content = request.POST['items']
+        inquiry.publisher = Publisher.objects.filter(name=request.POST['publisher'])[0]
+        inquiry.no = request.POST['invoice']
+        inquiry.total = int(request.POST['total'])
+        inquiry.discount = int(request.POST['discount'])
+        inquiry.subtotal = int(request.POST['subtotal'])
+        inquiry.save()
+        return HttpResponse('success')
 
 class InquiryView(TemplateView):
-    template_name = "backend/ex.html"
+    template_name = "backend/inquiry.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(InquiryView, self).get_context_data(**kwargs)
+        context['inquirys'] = Inquiry.objects.all()
+        return context
+
+class InquiryOpenView(View):
+    template_name = "backend/inquiry_open.html"
+    def get(self, request, pk):
+        return render( request, self.template_name, {'inquiry': Inquiry.objects.get(pk=pk)})

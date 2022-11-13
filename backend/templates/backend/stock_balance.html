@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Balance</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'backend/css/stock_balance.css' %}">
+</head>
+<body>
+    <h4>Stock Balance</h4>
+    <div id="location_div">
+        <input list="location" name="location" placeholder="Location Name" autofocus>
+        <datalist id="location">
+            <!-- <option value="Chrome"> -->
+        </datalist>
+    </div>
+    <div id="btns">
+        <button onclick="viewBalance()">View Balance</button>
+    </div>
+    <!-- CSRF TOKEN -->
+    {% csrf_token %}
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script>
+        let locations = [
+            {% for location in locations %}
+            {'name': '{{location.name}}', 'pk': '{{ location.pk }}'},
+            {% endfor %}
+        ];
+    </script>
+    <script src="{% static 'backend/js/stock_balance.js' %}"></script>
+</body>
+</html>

@@ -13,12 +13,13 @@ SECRET_KEY = 'django-insecure-4s1hng8(@%v)pc@c@ope!lmj$nmk9x%mn#okgh!n=!!*o3wyy^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.1.4']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'frontend',
     'cashier',
     'backend',
     'django.contrib.admin',
@@ -108,7 +109,8 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-    BASE_DIR / "backend/static"
+    BASE_DIR / "backend/static",
+    BASE_DIR / "frontend/static"
 ]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

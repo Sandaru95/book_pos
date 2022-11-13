@@ -7,4 +7,5 @@ urlpatterns = [
     path('', views.RedirectToLoginView.as_view()),
     path('backend/', include('backend.urls')),
     path('cashier/', include('cashier.urls')),
+    path('frontend/', include('frontend.urls')),
 ]

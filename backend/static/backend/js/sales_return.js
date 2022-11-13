@@ -138,7 +138,7 @@ function saveStock(){
         total: totalInput.value,
         csrfmiddlewaretoken: getCSRFTokenValue()
     };
-    $.ajax({ type: "POST", url: "/backend/add_stock/save/",
+    $.ajax({ type: "POST", url: "/backend/sales_return/save/",
         data: data,
         success: function(response) {
             if(response == "success") {

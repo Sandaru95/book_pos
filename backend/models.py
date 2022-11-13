@@ -45,3 +45,13 @@ class Item(models.Model):
 
     def __str__(self):
         return f"{self.book.title}:{self.qty}:{self.location.name}"
+
+class Inquiry(models.Model):
+    no = models.CharField(max_length=200)
+    publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE, blank=True, null=True)
+    content = models.TextField(max_length=50000)
+    subtotal = models.IntegerField(default=0)
+    discount = models.IntegerField(default=0)
+    total = models.IntegerField(default=0)
+    def __str__(self):
+        return self.no

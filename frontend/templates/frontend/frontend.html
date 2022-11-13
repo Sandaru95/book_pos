@@ -1,0 +1,78 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'frontend/home.css' %}">
+</head>
+<body>
+    <p id="title"><img src="{% static 'cashier/img/logo.png' %}"></p>
+    <section id="info-section">
+        <div><p>User: {{ user.username }}</p></div>
+        <div><p>Receipt No: 001</p></div>
+        <div><p>Location: {{ user.cashier.location }}</p></div>
+        <div><p>Time: <span id="clock" class="glow"></span></p></div>   
+        <div><p>Date: <span id="date" class="glow"></span></p></div>
+    </section>
+    <div id="bill-div">
+        <section id="table-section">
+            <table id="table-section-table">
+                <thead>
+                    <tr>
+                        <th>Item Code</th>
+                        <th>Item Name</th>
+                        <th>QTY</th>
+                        <th>Unit Price</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody id="table-section-table-body"></tbody>
+            </table>
+        </section>
+        <div id="subtotal-section">
+            <div class="container">
+                <div class="card">
+                    <div class="content">
+                        <h2>Rs.00.00</h2>
+                        <h3 id="total">Rs.00.00 </h3> 
+                        <p>Discount: </p>
+                        <p>Printer: POS</p>
+                        <a href="#">Balance: </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="input-section"><input type="text" id="input-section-input" autofocus></div>
+    <section id="help-section">
+        <p>N1: Logout</p>
+        <p>N2: Menu</p>
+        <p>N3: Search</p>
+        <p>N4: Cancel</p>
+        <p>N5: Print Last Bill</p>
+        <p>N6: Change Printer</p>
+        <p>N7: Refund</p>
+        <p>N8: Cash Draw</p>
+        <p>N9: Backend</p>
+        <p>N11: Reload</p>
+    </section>
+    <script src="{% static 'frontend/js/tilt.js' %}"></script>
+    <script>
+        VanillaTilt.init(document.querySelectorAll(".card"), {
+            max: 15,
+            speed: 400,
+            glare: true,
+            "max-glare": 1
+        });
+        let books = [
+            {% for book in books %}
+            {'title': '{{book.title}}', 'author':'{{ book.author.name }}', 'publisher': '{{ book.publisher.name }}','book_type': '{{ book.book_type.name }}', 'price': '{{ book.price }}', 'item_code': '{{ book.item_code }}', 'isbn_no': '{{ book.isbn_no }}'},
+            {% endfor %}
+        ];
+        let items = [];
+    </script>
+    <script src="{% static 'frontend/js/frontend.js' %}"></script>
+</body>
+</html>

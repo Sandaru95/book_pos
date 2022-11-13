@@ -1,0 +1,22 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Balance</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'backend/css/stock_balance_view.css' %}">
+</head>
+<body>
+    <h1>Stock Balance</h1>
+    {% if items %}
+    {% for item in items %}
+    <h1>{{ item.book.title }}</h1>
+    <p>{{ items.qty }}</p>
+    <p>{{ item.book.price }}</p>
+    {% endfor %}
+    {% else %}
+    <p>No stock found!</p>
+    {% endif %}
+</body>
+</html>
