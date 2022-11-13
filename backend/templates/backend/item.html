@@ -51,7 +51,9 @@
     <div id="btns">
         <button onclick="saveItem()">Save</button>
         <button onclick="updateItem()">Update</button>
+        {% if user.is_staff %}
         <button onclick="deleteItem()">Delete</button>
+        {% endif %}
         <button onclick="clearInputs()">Clear</button>
         <button onclick="windowClose()">Close</button>
     </div>

@@ -33,6 +33,10 @@ body{
     padding: 20px;
     cursor: pointer;
 }
+#side-section div#MyClockDisplay {
+    background-color: #b9d9e4;
+    transform: translateX(-50%) translateY(-50%);
+}
 #rest-section{
     position: absolute;
     width: 75%;

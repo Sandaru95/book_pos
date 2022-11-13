@@ -8,5 +8,14 @@ class Cashier(models.Model):
     location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True)
     last_logout = models.DateTimeField(null=True)
 
+    invoice_access = models.BooleanField(default=True)
+    add_stock_access = models.BooleanField(default=True)
+    sales_return_access = models.BooleanField(default=True)
+    sales_return_access = models.BooleanField(default=True)
+    location_access = models.BooleanField(default=True)
+    sales_report_access = models.BooleanField(default=True)
+    stock_balance_access = models.BooleanField(default=True)
+    inquiry_access = models.BooleanField(default=True)
+
     def __str__(self):
         return self.user.username

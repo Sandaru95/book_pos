@@ -197,7 +197,7 @@ class AddStockSaveView(View):
             match.qty += int(item['qty'])
             match.save()
         return HttpResponse('success')
-class LocationTransferView(TemplateView):
+class SalesReturnView(TemplateView):
     template_name = "backend/ex.html"
 
 class InvoiceView(TemplateView):

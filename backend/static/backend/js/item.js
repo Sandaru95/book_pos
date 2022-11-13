@@ -9,8 +9,13 @@ let bookTypeInput = document.getElementsByName('booktype')[0];
 const removeDuplicates = (arr) => [...new Set(arr)];
 const getCSRFTokenValue = () => document.getElementsByName('csrfmiddlewaretoken')[0].value;
 const windowClose = () => window.close();
+function navigateTo(url, w, h){window.open(url, "_blank", `toolbar=no,scrollbars=no,resizable=yes,top=${(screen.height/2)-(h/2)},left=${(screen.width/2)-(w/2)},width=${w},height=${h}`);};
 const inputsAllFilled = () => itemCodeInput.value && isbnNumberInput.value && priceInput.value && publisherInput.value && titleInput.value && authorInput.value && bookTypeInput.value ? true : false;
 function clearInputs(){itemCodeInput.value = '';isbnNumberInput.value = '';priceInput.value = '';publisherInput.value = '';titleInput.value = '';authorInput.value = '';bookTypeInput.value = '';itemCodeInput.focus();};
+
+// Keystrokes for Author, Publisher, Book Type Addition
+document.addEventListener('keypress', e => e.code == 'KeyA' ? navigateTo('/backend/author/', 600,600) : e.code == 'KeyP' ? navigateTo('/backend/publisher/', 600,600): e.code == 'KeyB' ? navigateTo('/backend/book_type/', 600,600) : console.log('Other key press') );
+
 
 function saveItem(){
     data = {

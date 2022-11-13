@@ -1,6 +1,6 @@
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta chrset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Backend</title>
@@ -14,56 +14,61 @@
     <section id="side-section">
         <h4>Management</h4>
         <div>Frontend</div>
+        {% if user.is_staff %}
         <div onclick="navigateTo('/admin/', 1500, 800)">Admin</div>
+        {% endif %}
         <div onclick="navigate('/cashier/logout/')">Logout</div>
+        <div id="MyClockDisplay" class="clock" onload="showTime()"></div>
     </section>
     <section id="rest-section">
         <select id="rest-section-locations"></select>
         <br>
-        <div class="backend-btn" onclick="navigateTo('{% url 'backend:item' %}', 800,800)">
+        <div class="backend-btn" onclick="navigateTo('{% url 'backend:item' %}', 1000,1000)">
             <img src="{% static 'backend/img/item.png' %}">
             <p>Items</p>
         </div>
-        <div class="backend-btn" onclick="navigateTo('{% url 'backend:author' %}', 800,800)">
-            <img src="{% static 'backend/img/author.png' %}">
-            <p>Authors</p>
-        </div>
-        <div class="backend-btn" onclick="navigateTo('{% url 'backend:publisher' %}', 800,800)">
-            <img src="{% static 'backend/img/publisher.png' %}">
-            <p>Publishers</p>
-        </div>
-        <div class="backend-btn" onclick="navigateTo('{% url 'backend:book_type' %}', 800,800)">
-            <img src="{% static 'backend/img/book_type.png' %}">
-            <p>Book Type</p>
-        </div>
-        <div class="backend-btn" onclick="navigateTo('{% url 'backend:location' %}', 800,800)">
-            <img src="{% static 'backend/img/location.png' %}">
-            <p>Location</p>
-        </div>
-        <div class="backend-btn" onclick="navigateTo('{% url 'backend:sales_report' %}', 800,800)">
-            <img src="{% static 'backend/img/sales.png' %}">
-            <p>Sales Report</p>
-        </div>
-        <div class="backend-btn" onclick="navigateTo('{% url 'backend:stock_balance' %}', 800,800)">
-            <img src="{% static 'backend/img/stock.png' %}">
-            <p>Stock Balance</p>
-        </div>
-        <div class="backend-btn" onclick="navigateTo('{% url 'backend:add_stock' %}', 1500,800)">
-            <img src="{% static 'backend/img/add_stock.png' %}">
-            <p>Add Stock</p>
-        </div>
-        <div class="backend-btn" onclick="navigateTo('{% url 'backend:location_transfer' %}', 800,800)">
-            <img src="{% static 'backend/img/location_transfer.png' %}">
-            <p>Location Transfer</p>
-        </div>
+        {% if user.cashier.invoice_access %}
         <div class="backend-btn" onclick="navigateTo('{% url 'backend:invoice' %}', 800,800)">
             <img src="{% static 'backend/img/invoice.png' %}">
             <p>Invoice</p>
         </div>
+        {% endif %}
+        {% if user.cashier.add_stock_access %}
+        <div class="backend-btn" onclick="navigateTo('{% url 'backend:add_stock' %}', 1500,800)">
+            <img src="{% static 'backend/img/add_stock.png' %}">
+            <p>Add Stock</p>
+        </div>
+        {% endif %}
+        {% if user.cashier.sales_return_access %}
+        <div class="backend-btn" onclick="navigateTo('{% url 'backend:sales_return' %}', 800,800)">
+            <img src="{% static 'backend/img/sales_return.png' %}">
+            <p>Sales Return</p>
+        </div>
+        {% endif %}
+        {% if user.cashier.location_access %}
+        <div class="backend-btn" onclick="navigateTo('{% url 'backend:location' %}', 800,800)">
+            <img src="{% static 'backend/img/location.png' %}">
+            <p>Location</p>
+        </div>
+        {% endif %}
+        {% if user.cashier.sales_report_access %}
+        <div class="backend-btn" onclick="navigateTo('{% url 'backend:sales_report' %}', 800,800)">
+            <img src="{% static 'backend/img/sales.png' %}">
+            <p>Sales Report</p>
+        </div>
+        {% endif %}
+        {% if user.cashier.stock_balance_access %}
+        <div class="backend-btn" onclick="navigateTo('{% url 'backend:stock_balance' %}', 800,800)">
+            <img src="{% static 'backend/img/stock.png' %}">
+            <p>Stock Balance</p>
+        </div>
+        {% endif %}
+        {% if user.cashier.inquiry_access %}
         <div class="backend-btn" onclick="navigateTo('{% url 'backend:inquiry' %}', 800,800)">
             <img src="{% static 'backend/img/inquiry.png' %}">
             <p>Inquiry</p>
         </div>
+        {% endif %}
     </section>
     <script>
         function navigateTo(url, w, h){
@@ -87,6 +92,22 @@
             });
             locationElem.innerHTML = locationElemInner;
         };setLocations();
+        function showTime(){
+            let date = new Date();
+            let h = date.getHours(); // 0 - 23
+            let m = date.getMinutes(); // 0 - 59
+            let s = date.getSeconds(); // 0 - 59
+            let session = "AM";
+            h == 0 ? h = 12 : h=h;
+            h > 12 ? [h, session] = [h - 12, "PM"]: h=h;
+            h = (h < 10) ? "0" + h : h;
+            m = (m < 10) ? "0" + m : m;
+            s = (s < 10) ? "0" + s : s;
+            let time = h + ":" + m + ":" + s + " " + session;
+            document.getElementById("MyClockDisplay").innerText = time;
+            document.getElementById("MyClockDisplay").textContent = time;
+            setTimeout(showTime, 1000);
+        };showTime();
     </script>
 </body>
 </html>
