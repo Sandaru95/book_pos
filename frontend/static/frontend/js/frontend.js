@@ -1,5 +1,7 @@
 let barCodeInput = document.getElementById('input-section-input');
 const itemTableBody = document.getElementById('table-section-table-body');
+const discountLabel = document.getElementById('discount');
+const totalLabel = document.getElementById('total');
 
 setInterval(displayTime,1000)
 function displayTime(){
@@ -35,6 +37,23 @@ document.addEventListener("keypress", (key) => {
         renderItemsToTable();
     };
 });
+document.addEventListener("keypress", (key) => {
+    if(key.code == 'NumpadMultiply'){
+        key.preventDefault();
+        discountLabel.innerHTML = barCodeInput.value;
+        let total = 0;
+        items.map(item => total += (Number(item.price) * Number(item.qty)));
+        totalLabel.innerText = `${total * barCodeInput.value/100}`;
+        barCodeInput.value = '';
+    };
+});
+document.addEventListener("keypress", (key) => {
+    if(key.code == 'NumpadSubtract'){
+        key.preventDefault();
+        document.getElementById('balance').innerHTML = Number(barCodeInput.value) - Number(totalLabel.innerText);
+        barCodeInput.value = '';
+    };
+});
 
 function renderItemsToTable(){
     let itemInner = '';
@@ -54,7 +73,7 @@ function renderItemsToTable(){
 function calculateTotals(){
     let total = 0;
     items.map(item => total += (Number(item.price) * Number(item.qty)));
-    document.getElementById('total').innerText = `Rs.${total}`;
+    totalLabel.innerText = total;
 };
 
 document.addEventListener("keypress", e => e.code == "Numpad9" ? window.location.replace('/backend/') : e.code == "Numpad1" ? window.location.replace('/cashier/logout/') : console.log());

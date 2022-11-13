@@ -12,7 +12,7 @@
     {% if items %}
     {% for item in items %}
     <h1>{{ item.book.title }}</h1>
-    <p>{{ items.qty }}</p>
+    <p>{{ item.qty }}</p>
     <p>{{ item.book.price }}</p>
     {% endfor %}
     {% else %}

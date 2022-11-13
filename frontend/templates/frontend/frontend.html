@@ -1,13 +1,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Frontend</title>
     {% load static %}
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'frontend/home.css' %}">
 </head>
-<body>
+<body style="background-image: url('{% static 'frontend/img/back.gif' %}');"> <!-- rgba(3, 3, 97, 0.63) -->
     <p id="title"><img src="{% static 'cashier/img/logo.png' %}"></p>
     <section id="info-section">
         <div><p>User: {{ user.username }}</p></div>
@@ -36,10 +35,10 @@
                 <div class="card">
                     <div class="content">
                         <h2>Rs.00.00</h2>
-                        <h3 id="total">Rs.00.00 </h3> 
-                        <p>Discount: </p>
+                        <h3>Rs.<span id="total">00.00</span></h3> 
+                        <p>Discount: <span id="discount"></span>%</p>
                         <p>Printer: POS</p>
-                        <a href="#">Balance: </a>
+                        <a href="#" id="balance">Balance: </a>
                     </div>
                 </div>
             </div>
