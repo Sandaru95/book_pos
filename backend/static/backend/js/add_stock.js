@@ -3,14 +3,32 @@ const itemNameInput = document.getElementsByName('item_name')[0];
 const itemQtyInput = document.getElementsByName('item_qty')[0];
 const itemTable = document.getElementById('item_table');
 const itemTableBody = document.getElementById('item_table_body');
+
+const discountInput = document.getElementsByName('discount')[0];
+const totalInput = document.getElementsByName('total')[0];
+const subTotalInput = document.getElementsByName('subtotal')[0];
+
 const removeDuplicates = (arr) => [...new Set(arr)];
 const getCSRFTokenValue = () => document.getElementsByName('csrfmiddlewaretoken')[0].value;
+
+const updateTotals = () => {
+    let subtotal = 0;
+    let total;
+    items.map(i => subtotal += Number(i.qty) * Number(i.price));
+    if (discountInput.value){
+        total = subtotal * (100-Number(discountInput.value))/100;
+    }else{
+        total = subtotal * 0.8;
+    };
+    subtotal.value = subtotal;
+    total.value = total;
+};
 
 function clearInputs(){
     itemCodeInput.value = '';
     itemNameInput.value = '';
     itemQtyInput.value = '';
-    itemCodeInput.focus();
+    itemCodeInput.focus();updateTotals();
 };
 function itemAlreadyPresent(){
     let present = false;

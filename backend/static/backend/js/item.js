@@ -15,7 +15,7 @@ function clearInputs(){itemCodeInput.value = '';isbnNumberInput.value = '';price
 
 // Keystrokes for Author, Publisher, Book Type Addition
 document.addEventListener('keypress', e => e.code == 'KeyA' ? navigateTo('/backend/author/', 600,600) : e.code == 'KeyP' ? navigateTo('/backend/publisher/', 600,600): e.code == 'KeyB' ? navigateTo('/backend/book_type/', 600,600) : console.log('Other key press') );
-
+// document.addEventListener('keypress', e => e.code == 'KeyA' && (!$('#title_input').is(':focus')) ? navigateTo('/backend/author/', 600,600) : e.code == 'KeyP' && (!$('#title_input').is(':focus')) ? navigateTo('/backend/publisher/', 600,600): e.code == 'KeyB'&& (!$('#title_input').is(':focus')) ? navigateTo('/backend/book_type/', 600,600) : console.log('Other key press') );
 
 function saveItem(){
     data = {

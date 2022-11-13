@@ -18,20 +18,10 @@ input{
     font-size: 18px;
     border-radius: 5px;
 }
-
-#location_div{
-    margin-top: 20px;
-    margin-bottom: 20px;
-    width: 35%;
-    display: inline-block;
-}
-#location_div input{
-    width: 100%;
-}
 #publisher_div{
     margin-top: 20px;
     margin-bottom: 20px;
-    width: 35%;
+    width: 50%;
     display: inline-block;
 }
 #publisher_div input{
@@ -40,7 +30,7 @@ input{
 #invoice_div{
     margin-top: 20px;
     margin-bottom: 20px;
-    width: 28%;
+    width: 48%;
     display: inline-block;
 }
 #invoice_div input{
