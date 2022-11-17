@@ -203,6 +203,7 @@ class AddStockSaveView(View):
         for item in items:
             location = request.user.cashier.location
             book = Book.objects.get(item_code=item['item_code'])
+            print(Item.objects.filter(location=request.user.cashier.location, book=book))
             match = Item.objects.filter(location=request.user.cashier.location, book=book)[0]
             match.qty += int(item['qty'])
             match.save()
@@ -232,6 +233,7 @@ class SalesReturnSaveView(View):
         for item in items:
             location = request.user.cashier.location
             book = Book.objects.get(item_code=item['item_code'])
+            print(Item.objects.filter(location=request.user.cashier.location, book=book))
             match = Item.objects.filter(location=request.user.cashier.location, book=book)[0]
             match.qty -= int(item['qty'])
             match.save()
@@ -262,6 +264,7 @@ class InvoiceSaveView(View):
         for item in items:
             location = request.user.cashier.location
             book = Book.objects.get(item_code=item['item_code'])
+            print(Item.objects.filter(location=request.user.cashier.location, book=book))
             match = Item.objects.filter(location=request.user.cashier.location, book=book)[0]
             match.qty -= int(item['qty'])
             match.save()

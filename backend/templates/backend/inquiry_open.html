@@ -5,9 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inquiry</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'backend/css/inquiry.css' %}">
+    {% include 'favicon.html' %}
+    <link rel="stylesheet" href="{% static 'backend/css/inquiry_open.css' %}">
 </head>
 <body>
-    {{ inquiry.content }}
+    <header id="topic">
+        <h1>Nishantha Publisher</h1>
+        <p>248, Bollatha, Ganemulla.</p>
+        <p>Receipt Type: Invoice</p>
+    </header>
+    <table border>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>ISBN</th>
+                <th>Price</th>
+                <th>QTY</th>
+                <th>Total Price</th>
+            </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+    </table>
+    <script>
+    let items = JSON.parse('{{ inquiry.content|safe }}');
+    </script>
+    <script src="{% static 'backend/js/inquiry_open.js' %}"></script>
 </body>
 </html>
