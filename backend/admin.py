@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Author, Publisher, Book, BookType, Location, Item, Inquiry
+from .models import Author, Publisher, Book, BookType, Location, Item, Inquiry, Receipt
 
 
 admin.site.register(Author)
@@ -9,3 +9,4 @@ admin.site.register(BookType)
 admin.site.register(Location)
 admin.site.register(Item)
 admin.site.register(Inquiry)
+admin.site.register(Receipt)

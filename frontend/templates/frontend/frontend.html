@@ -5,12 +5,14 @@
     {% load static %}
     <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'frontend/home.css' %}">
+    <!-- Library for Printing -->
+    <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
 </head>
 <body> <!-- rgba(3, 3, 97, 0.63) -->
     <p id="title"><img src="{% static 'cashier/img/logo.png' %}"></p>
     <section id="info-section">
         <div><p>User: {{ user.username }}</p></div>
-        <div><p>Receipt No: 001</p></div>
+        <div><p>Receipt No: <span id="receipt-no">{{ user.cashier.last_receipt_no }}</span></p></div>
         <div><p>Location: {{ user.cashier.location }}</p></div>
         <div><p>Time: <span id="clock" class="glow"></span></p></div>   
         <div><p>Date: <span id="date" class="glow"></span></p></div>
@@ -27,7 +29,9 @@
                         <th>Price</th>
                     </tr>
                 </thead>
-                <tbody id="table-section-table-body"></tbody>
+                <tbody id="table-section-table-body">
+
+                </tbody>
             </table>
         </section>
         <div id="subtotal-section">
@@ -47,30 +51,41 @@
     <div id="input-section"><input type="text" id="input-section-input" autofocus></div>
     <section id="help-section">
         <p>N1: Logout</p>
-        <p>N2: Menu</p>
-        <p>N3: Search</p>
-        <p>N4: Cancel</p>
-        <p>N5: Print Last Bill</p>
-        <p>N6: Change Printer</p>
+        <p>N2: Balance</p>
+        <p>N3: Cash In</p>
+        <p>N4: Cash Out</p>
+        <p>N5: Admin</p>
+        <p>N6: Misc</p>
         <p>N7: Refund</p>
         <p>N8: Cash Draw</p>
         <p>N9: Backend</p>
         <p>N11: Reload</p>
     </section>
+    <div id="receipt-div">
+        <h2>Nishantha Publishers</h2>
+        <p>248, Bollatha, Ganemulla.</p>
+        <p>Tel: 0112247436</p>
+        <table id="receipt-div-content"></table>
+        <p>Subtotal:<span id="receipt-div-subtotal"></span></p>
+        <p>Discount:<span id="receipt-div-discount"></span></p>
+        <p>Total:<span id="receipt-div-total"></span></p>
+        <p>Balance:<span id="receipt-div-balance"></span></p>
+    </div>
+    {% csrf_token %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{% static 'frontend/js/tilt.js' %}"></script>
+    <!-- Printing JS -->
+    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script>
-        VanillaTilt.init(document.querySelectorAll(".card"), {
-            max: 15,
-            speed: 400,
-            glare: true,
-            "max-glare": 1
-        });
+        VanillaTilt.init(document.querySelectorAll(".card"), {max: 15,speed: 400,glare: true,"max-glare": 1});
         let books = [
             {% for book in books %}
             {'title': '{{book.title}}', 'author':'{{ book.author.name }}', 'publisher': '{{ book.publisher.name }}','book_type': '{{ book.book_type.name }}', 'price': '{{ book.price }}', 'item_code': '{{ book.item_code }}', 'isbn_no': '{{ book.isbn_no }}'},
             {% endfor %}
         ];
         let items = [];
+        let cash_balance = {{ user.cashier.cash_balance }};
     </script>
     <script src="{% static 'frontend/js/frontend.js' %}"></script>
 </body>

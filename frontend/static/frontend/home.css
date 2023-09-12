@@ -44,7 +44,9 @@ body{
     color: #111;
     width: 25%;
     height: 40%;
-    display: inline-block;
+    position: fixed;
+    top: 12%;
+    right: 0;
 }
 
 .container {
@@ -199,4 +201,14 @@ body{
     width: 100%;
     padding: 10px;
     font-size: 20px;
+}
+/* The Receipt */
+#receipt-div{
+    text-align: center;
+}
+#receipt-div{
+    text-align: center;
+}
+#receipt-div table{
+    text-align: center;
 }

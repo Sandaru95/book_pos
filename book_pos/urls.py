@@ -8,4 +8,5 @@ urlpatterns = [
     path('backend/', include('backend.urls')),
     path('cashier/', include('cashier.urls')),
     path('frontend/', include('frontend.urls')),
+    path('misc/', include('misc.urls')),
 ]

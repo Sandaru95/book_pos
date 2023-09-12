@@ -24,10 +24,10 @@
     setTimeout(() => {
         const h1 = document.getElementsByTagName('h1')[0];
         h1.innerText = "Press Any Key to Continue";
-        document.addEventListener('keypress', () => {
+        setTimeout(() => {
           window.localStorage.setItem('loaded', true);
           window.location.replace("/cashier/login/");
-        });
+        }, 1000);
       }, 5000);
     
   </script>

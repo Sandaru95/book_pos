@@ -1,9 +1,12 @@
 from django.db import models
+from datetime import date
+from django.utils import timezone
 
 class Publisher(models.Model):
     name = models.CharField(max_length=30)
     tel = models.CharField(max_length=10)
     address = models.CharField(max_length=150)
+    email = models.EmailField(null=True, blank=True)
     def __str__(self):
         return self.name
 
@@ -41,6 +44,7 @@ class Location(models.Model):
 class Item(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     qty = models.IntegerField(default=0)
+    initial_qty = models.IntegerField(null=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -55,3 +59,12 @@ class Inquiry(models.Model):
     total = models.IntegerField(default=0)
     def __str__(self):
         return self.no
+    
+class Receipt(models.Model):
+    no = models.IntegerField()
+    content = models.TextField(max_length=50000)
+    total = models.IntegerField(default=0)
+    timeIssued = models.DateField(default=timezone.now)
+
+    def __str__(self):
+        return "Receipt: " + str(self.no)

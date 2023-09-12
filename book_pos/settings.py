@@ -13,12 +13,14 @@ SECRET_KEY = 'django-insecure-4s1hng8(@%v)pc@c@ope!lmj$nmk9x%mn#okgh!n=!!*o3wyy^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.1.21']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'mathfilters',
+    'misc',
     'frontend',
     'cashier',
     'backend',

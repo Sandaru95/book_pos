@@ -1,0 +1,12 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+</head>
+<body>
+    {% for publisher in object_list  %}
+    <a href="/misc/invoice/{{ publisher.pk }}/">{{ publisher.name }}</a>
+    {% endfor %}
+</body>
+</html>
