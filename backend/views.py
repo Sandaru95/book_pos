@@ -20,6 +20,7 @@ class ItemView(TemplateView):
         context['authors'] = Author.objects.all()
         context['publishers'] = Publisher.objects.all()
         context['book_types'] = BookType.objects.all()
+        context['inquirys'] = Inquiry.objects.all()
         return context
 
 class ItemSaveView(View):
@@ -36,6 +37,33 @@ class ItemSaveView(View):
         book.item_code = request.POST['item_code']
         book.isbn_no = request.POST['isbn_no']
         book.save()
+
+        # Optionally Add the Item to an Inquiry
+        if request.POST['inquiry'] and request.POST['qty']:
+            inquiry_post = request.POST['inquiry']
+            qty_post = request.POST['qty']
+            inquiry_selected = Inquiry.objects.filter(no=inquiry_post)[0]
+            new_content = inquiry_selected.content[:-1] + ',{"title": "' + request.POST['title'] + '", "author":"' + author_post + '", "publisher":"' + publisher_post + '", "book_type": "' + book_type_post + '", "price": "' + request.POST['price'] + '", "item_code": "' + request.POST['item_code'] + '", "isbn_no": "' + request.POST['isbn_no'] + '", "qty": "'+ request.POST['qty'] + '"}]'
+            inquiry_selected.content = new_content
+
+            # calculating new subtotal and total
+            subtotal = 0
+            total = 0
+            temp_list = json.loads(new_content)
+            for i in temp_list:
+                subtotal += (int(i['qty']) * int(i['price']))
+            total = subtotal * ((100-int(inquiry_selected.discount))/100)
+            inquiry_selected.subtotal = subtotal
+            inquiry_selected.total = total
+            inquiry_selected.save()
+
+            new_item = Item()
+            new_item.book = book
+            new_item.qty = int(request.POST['qty'])
+            new_item.initial_qty = int(qty_post)
+            new_item.location = request.user.cashier.location
+            new_item.save()
+
         return HttpResponse('success')
 
 class ItemUpdateView(View):
@@ -184,8 +212,9 @@ class StockBalanceView(TemplateView):
 
 class StockBalanceViewView(View):
     def get(self, request, pk):
-        items = Item.objects.filter(location=Location.objects.get(pk=pk))
-        return render(request, 'backend/stock_balance_view.html', {'items': items})
+        location = Location.objects.get(pk=pk)
+        items = Item.objects.filter(location=location)
+        return render(request, 'backend/stock_balance_view.html', {'items': items, 'location': location})
 
 class AddStockView(TemplateView):
     template_name = "backend/add_stock.html"
@@ -201,12 +230,25 @@ class AddStockSaveView(View):
     def post(self, request):
         items = json.loads(request.POST['items'])
         for item in items:
+            print(item)
             location = request.user.cashier.location
             book = Book.objects.get(item_code=item['item_code'])
-            print(Item.objects.filter(location=request.user.cashier.location, book=book))
-            match = Item.objects.filter(location=request.user.cashier.location, book=book)[0]
-            match.qty += int(item['qty'])
-            match.save()
+            match = Item.objects.filter(location=location, book=book)
+
+            if match:
+                matched = match[0]
+                matched.qty += int(item['qty'])
+                matched.initial_qty += int(item['qty']) # THE NEWLY UPDATED LINE AT 9/16/2023
+                matched.save()
+            else:
+                new_item = Item()
+                new_item.book = book
+                new_item.location = location
+                new_item.initial_qty = int(item['qty'])
+                new_item.qty = int(item['qty'])
+                new_item.save()
+        
+        # creating an inquiry
         inquiry = Inquiry()
         inquiry.content = request.POST['items']
         inquiry.publisher = Publisher.objects.filter(name=request.POST['publisher'])[0]
@@ -216,7 +258,6 @@ class AddStockSaveView(View):
         inquiry.subtotal = int(request.POST['subtotal'])
         inquiry.save()
         return HttpResponse('success')
-
 class SalesReturnView(TemplateView):
     template_name = "backend/sales_return.html"
 

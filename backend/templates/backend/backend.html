@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{% static 'backend/css/backend.css'%}">
 </head>
 <body>
+    {% if user.is_authenticated %}
     <section id="title-section">
         <h2>Nishantha Publishers</h2>
     </section>
@@ -68,6 +69,7 @@
             <p>Inquiry</p>
         </div>
         {% endif %}
+    
     </section>
     <script>
         function navigateTo(url, w, h){
@@ -108,5 +110,6 @@
             setTimeout(showTime, 1000);
         };showTime();
     </script>
+    {% endif %}
 </body>
 </html>

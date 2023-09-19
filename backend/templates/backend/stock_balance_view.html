@@ -5,19 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock Balance</title>
     {% load static %}
+    {% load mathfilters %}
     {% include 'favicon.html' %}
     <link rel="stylesheet" href="{% static 'backend/css/stock_balance_view.css' %}">
 </head>
 <body>
-    <h1>Stock Balance</h1>
-    {% if items %}
-    {% for item in items %}
-    <h1>{{ item.book.title }}</h1>
-    <p>{{ item.qty }}</p>
-    <p>{{ item.book.price }}</p>
-    {% endfor %}
-    {% else %}
-    <p>No stock found!</p>
-    {% endif %}
+    <h1>Stock Balance: {{ location.name }}</h1>
+    <table class="sortable" border>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>ISBN</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Total Price</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+            {% if items %}
+            {% for item in items %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ item.book.title }}</td>
+                <td>{{ item.book.isbn_no }}</td>
+                <td>{{ item.book.price }}</td>
+                <td>{{ item.qty }}</td>
+                <td>{{ item.book.price|mul:item.qty }}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <p>No stock found!</p>
+            {% endif %}
+        </tbody>
+    </table>
+    <script src="{% static 'backend/js/sorttable.js' %}"></script>
 </body>
 </html>

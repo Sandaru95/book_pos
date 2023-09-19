@@ -8,4 +8,5 @@ urlpatterns = [
     path('invoice/', views.InvoiceView.as_view(), name='invoice'),
     path('invoice/<int:pk>/', views.InvoicePublisherView.as_view(), name='invoice_publisher'),
     path('sales_return/', views.SalesReturnView.as_view(), name='sales_return'),
+    path('stock_search/', views.StockSearchView.as_view(), name='stock_search'),
 ]

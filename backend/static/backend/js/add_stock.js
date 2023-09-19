@@ -45,11 +45,11 @@ function itemAlreadyPresent(){
 function itemCodeSelected(){
     let itemCode = itemCodeInput.value;
     let book;
-    books.map((i) => {
+    for (let i of books){
         if (i.item_code == itemCode){
             book = i;
         };
-    });
+    };
     // Setting the Values to the Inputs
     itemNameInput.value = book.title;
     itemQtyInput.focus()
@@ -141,8 +141,12 @@ function saveStock(){
     $.ajax({ type: "POST", url: "/backend/add_stock/save/",
         data: data,
         success: function(response) {
+            console.log({response});
             if(response == "success") {
                 Swal.fire('Inquiry Posted!', '', 'success');
+            }
+            if(response == "failed"){
+                Swal.fire('Failure!', '', 'failed');
             }
         }
     });

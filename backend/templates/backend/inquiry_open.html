@@ -9,27 +9,43 @@
     <link rel="stylesheet" href="{% static 'backend/css/inquiry_open.css' %}">
 </head>
 <body>
+    
+    <section id="img-section">
+        <img src="{% static 'cashier/img/logo.png' %}" width="120px">
+    </section>
     <header id="topic">
-        <h1>Nishantha Publisher</h1>
+        <h1>නිශාන්ත ප්‍රකාශන </h1>
         <p>248, Bollatha, Ganemulla.</p>
-        <p>Receipt Type: Invoice</p>
+        <p>011 224 7436 / 070 477 700</p>
+        <p>Inquiry No: {{ inquiry.no }}</p>
     </header>
-    <table border>
+    <section>
+        <p id="from-publisher-p">From: {{ inquiry.publisher.name }}</p>
+        <p id="from-publisher-tel">Tel: {{ inquiry.publisher.tel }}</p>
+        <p id="from-publisher-address">Address: {{ inquiry.publisher.address }}</p>
+    </section>
+    <table class="sortable" border>
         <thead>
             <tr>
                 <th>#</th>
                 <th>Title</th>
                 <th>ISBN</th>
                 <th>Price</th>
-                <th>QTY</th>
+                <th>Qty</th>
                 <th>Total Price</th>
             </tr>
         </thead>
         <tbody id="tbody"></tbody>
     </table>
+    <section id="sum-section">
+        <h3>Sub Total: Rs.<span id="full-total-span">{{ inquiry.subtotal }}</span></h3>
+        <h3>Discount: <span id="full-total-span">{{ inquiry.discount }}%</span></h3>
+        <h3>Total: Rs.<span id="full-total-span">{{ inquiry.total }}</span></h3>
+    </section>
     <script>
     let items = JSON.parse('{{ inquiry.content|safe }}');
     </script>
     <script src="{% static 'backend/js/inquiry_open.js' %}"></script>
+    <script src="{% static 'backend/js/sorttable.js' %}"></script>
 </body>
 </html>

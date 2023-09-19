@@ -20,5 +20,8 @@ class Cashier(models.Model):
 
     cash_balance = models.IntegerField(default=0)
 
+    inquiry_signature = models.BooleanField(default=False)
+    inquiry_ascending = models.BooleanField(default=False)
+    
     def __str__(self):
         return self.user.username

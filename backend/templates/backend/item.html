@@ -49,6 +49,16 @@
             <!-- <option value="Chrome"> -->
         </datalist>
     </div>
+    <div id="inquiry_div">
+        <input list="inquiry" name="inquiry" placeholder="Inquiry No">
+        <datalist id="inquiry">
+            <!-- <option value="Chrome"> -->
+        </datalist>
+    </div>
+    <div id="qty_div">
+        <input type="text" name="qty" placeholder="Qty">
+    </div>
+    <br>
     <div id="btns">
         <button onclick="saveItem()">Save</button>
         <button onclick="updateItem()">Update</button>
@@ -58,6 +68,7 @@
         <button onclick="clearInputs()">Clear</button>
         <button onclick="windowClose()">Close</button>
     </div>
+    <br>
     <!-- CSRF TOKEN -->
     {% csrf_token %}
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
@@ -80,6 +91,11 @@
         let book_types = [
             {% for book_type in book_types %}
             {'name': '{{book_type.name}}'},
+            {% endfor %}
+        ];
+        let inquirys = [
+            {% for inquiry in inquirys %}
+                {'no': '{{inquiry.no}}'},
             {% endfor %}
         ];
     </script>

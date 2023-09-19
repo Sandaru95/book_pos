@@ -9,9 +9,17 @@
     <link rel="stylesheet" href="{% static 'backend/css/inquiry.css' %}">
 </head>
 <body>
+    <section id="invoice-custom">
+        <form>
+            <input type="text" placeholder="Search..." oninput="searchNow(this)">
+            <label for="signature">Signatures</label>
+            <input type="checkbox" name="signature" id="signature">
+        </form>
+    </section>
+    <div id="inquiry-div-">
     {% for inquiry in inquirys %}
-    <div>
-        <button onclick="navigateTo(`/backend/inquiry/{{ inquiry.pk }}/`, 800, 800)">{{ inquiry.no }}</button>
+    <div class="inquiry-div">
+        <button class="button-30" onclick="navigateTo(`/backend/inquiry/{{ inquiry.pk }}/`, 800, 800)">{{ inquiry.no }}</button>
     </div>
     {% endfor %}
     <div></div>
@@ -27,6 +35,23 @@
             {'no': '{{inquiry.no}}', 'pk':'{{ inquiry.pk }}'},
             {% endfor %}
         ];
+        function searchNow(elem){
+            console.log('This is running tho');
+            let arr1 = [];
+            for(let i of inquirys){
+                if(i['no'].toLowerCase().includes(elem.value.toLowerCase())){
+                    arr1.push(i);
+                };
+            };
+            let innerHtml = '';
+            for(let a of arr1){
+                innerHtml += `
+                    <div class="inquiry-div">
+                        <button class="button-30" onclick="navigateTo("/backend/inquiry/${ a.pk }/", 800, 800)">${ a.no }</button>
+                    </div>`;
+            };
+            document.getElementById('inquiry-div-').innerHTML = innerHtml;  
+        };
     </script>
 </body>
 </html>

@@ -12,7 +12,6 @@ class Publisher(models.Model):
 
 class Author(models.Model):
     name = models.CharField(max_length=200)
-    tel = models.CharField(max_length=250)
 
     def __str__(self):
         return self.name
@@ -33,7 +32,7 @@ class Book(models.Model):
     isbn_no = models.CharField(max_length=80)
 
     def __str__(self):
-        return self.title
+        return self.title + " " + self.item_code + " " + self.publisher.name
     
 class Location(models.Model):
     name = models.CharField(max_length=250)
@@ -48,7 +47,7 @@ class Item(models.Model):
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.book.title}:{self.qty}:{self.location.name}"
+        return f"{self.book.title}:{self.qty}:{self.location.name}:{self.book.publisher.name}"
 
 class Inquiry(models.Model):
     no = models.CharField(max_length=200)

@@ -25,3 +25,9 @@ class InvoicePublisherView(DetailView):
 class SalesReturnView(ListView):
     model = Publisher
     template_name = 'misc/sales_return.html'
+
+class StockSearchView(View):
+    def get(self, request):
+        context = {}
+        context['items'] = Item.objects.all()
+        return render(request, "misc/stock_search.html", context)

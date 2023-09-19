@@ -71,6 +71,22 @@ input{
 #btns{
     width: 100%;
 }
+#inquiry_div{
+    width: 40%;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+#inquiry_div input{
+    width: 100%;
+}
+#qty_div{
+    width: 50%;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+#qty_div input{
+    width: 100%;
+}
 #btns button{
     border: 0;
     padding: 10px;

@@ -204,9 +204,9 @@ body{
 }
 /* The Receipt */
 #receipt-div{
-    text-align: center;
-}
-#receipt-div{
+    opacity: 0;
+    position: absolute;
+    z-index: -500;
     text-align: center;
 }
 #receipt-div table{

@@ -44,13 +44,27 @@ let item;
 document.addEventListener("keypress", (e) => {
     if (e.code == "Enter") {
         console.log('enter pressed');
-        for (let b of books) {
-            if (b.item_code == barCodeInput.value) {
-                item = b;
+        console.log(barCodeInput.value);
+        if(barCodeInput.value){
+            if(barCodeInput.value == "000"){
+                // Other Item Price
+                let othPrice = prompt("Unit Price(Rs.): ");
+                // Other Item QTY
+                let othQty = prompt("Qty: ");
+                // Other Item Success
+                if (othPrice && othQty){
+                    Toast.fire({ icon: 'success', title: "Other Item Added!" });
+                };
+            }else{
+                for (let b of books) {
+                    if (b.item_code == barCodeInput.value) {
+                        item = b;
+                    };
+                };
+                Toast.fire({ icon: 'success', title: item.title });
             };
+            barCodeInput.value = '';
         };
-        Toast.fire({ icon: 'success', title: item.title });
-        barCodeInput.value = '';
     };
 });
 document.addEventListener("keypress", (key) => {
@@ -199,8 +213,17 @@ function cashOutOfDrawer(){
         }
     });
 };
-
+// SHORTCUT Functions
 function changeHref(url){
     window.location.replace(url);
 }
-document.addEventListener("keypress", e => e.code == "Numpad9" ? window.location.replace('/backend/') : e.code == "Numpad3" ? cashInToDrawer() : e.code == "Numpad5" ? changeHref('/admin/') : e.code == "Numpad4" ? cashOutOfDrawer(): e.code == "Numpad2" ? showCashBalance() : e.code == "Numpad6" ? changeHref('/misc/') : e.code == "Numpad1" ? window.location.replace('/cashier/logout/') : console.log());
+function navigateTo(url, w, h){
+    window.open(url, "_blank", `toolbar=no,scrollbars=no,resizable=yes,top=${(screen.height/2)-(h/2)},left=${(screen.width/2)-(w/2)},width=${w},height=${h}`);
+};
+function navigate(url){
+    window.location.replace(url);;
+};
+function searchStockWindow(){
+    navigateTo("/misc/stock_search/", "600px", "600px");
+};
+document.addEventListener("keypress", e => e.code == "KeyO" ? window.location.replace('/backend/') : e.code == "KeyE" ? cashInToDrawer() : e.code == "KeyT" ? changeHref('/admin/') : e.code == "KeyR" ? cashOutOfDrawer(): e.code == "KeyW" ? showCashBalance() : e.code == "KeyY" ? changeHref('/misc/') : e.code == "KeyQ" ? window.location.replace('/cashier/logout/') : e.code == "Backquote" ? searchStockWindow() : console.log(e.code));

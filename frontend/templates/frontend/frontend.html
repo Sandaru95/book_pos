@@ -8,7 +8,8 @@
     <!-- Library for Printing -->
     <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
 </head>
-<body> <!-- rgba(3, 3, 97, 0.63) -->
+<body>
+    {% if user.is_authenticated %}
     <p id="title"><img src="{% static 'cashier/img/logo.png' %}"></p>
     <section id="info-section">
         <div><p>User: {{ user.username }}</p></div>
@@ -50,16 +51,16 @@
     </div>
     <div id="input-section"><input type="text" id="input-section-input" autofocus></div>
     <section id="help-section">
-        <p>N1: Logout</p>
-        <p>N2: Balance</p>
-        <p>N3: Cash In</p>
-        <p>N4: Cash Out</p>
-        <p>N5: Admin</p>
-        <p>N6: Misc</p>
+        <p>Q: Logout</p>
+        <p>W: Balance</p>
+        <p>E: Cash In</p>
+        <p>R: Cash Out</p>
+        <p>T: Admin</p>
+        <p>Y: Misc</p>
         <p>N7: Refund</p>
         <p>N8: Cash Draw</p>
-        <p>N9: Backend</p>
-        <p>N11: Reload</p>
+        <p>O: Backend</p>
+        <p>P: Reload</p>
     </section>
     <div id="receipt-div">
         <h2>Nishantha Publishers</h2>
@@ -88,5 +89,6 @@
         let cash_balance = {{ user.cashier.cash_balance }};
     </script>
     <script src="{% static 'frontend/js/frontend.js' %}"></script>
+    {% endif %}
 </body>
 </html>

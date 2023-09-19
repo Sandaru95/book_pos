@@ -6,6 +6,9 @@ let titleInput = document.getElementsByName('title')[0];
 let authorInput = document.getElementsByName('author')[0];
 let bookTypeInput = document.getElementsByName('booktype')[0];
 
+let inquiryInput = document.getElementsByName('inquiry')[0];
+let qtyInput = document.getElementsByName('qty')[0];
+
 const removeDuplicates = (arr) => [...new Set(arr)];
 const getCSRFTokenValue = () => document.getElementsByName('csrfmiddlewaretoken')[0].value;
 const windowClose = () => window.close();
@@ -14,8 +17,7 @@ const inputsAllFilled = () => itemCodeInput.value && isbnNumberInput.value && pr
 function clearInputs(){itemCodeInput.value = '';isbnNumberInput.value = '';priceInput.value = '';publisherInput.value = '';titleInput.value = '';authorInput.value = '';bookTypeInput.value = '';itemCodeInput.focus();};
 
 // Keystrokes for Author, Publisher, Book Type Addition
-document.addEventListener('keypress', e => e.code == 'KeyA' ? navigateTo('/backend/author/', 600,600) : e.code == 'KeyP' ? navigateTo('/backend/publisher/', 600,600): e.code == 'KeyB' ? navigateTo('/backend/book_type/', 600,600) : console.log('Other key press') );
-// document.addEventListener('keypress', e => e.code == 'KeyA' && (!$('#title_input').is(':focus')) ? navigateTo('/backend/author/', 600,600) : e.code == 'KeyP' && (!$('#title_input').is(':focus')) ? navigateTo('/backend/publisher/', 600,600): e.code == 'KeyB'&& (!$('#title_input').is(':focus')) ? navigateTo('/backend/book_type/', 600,600) : console.log('Other key press') );
+document.addEventListener('keypress', e => e.code == 'NumpadDivide' ? navigateTo('/backend/author/', 600,600) : e.code == 'NumpadMultiply' ? navigateTo('/backend/publisher/', 600,600): e.code == 'NumpadSubtract' ? navigateTo('/backend/book_type/', 600,600) : console.log('Other key press') );
 
 function saveItem(){
     data = {
@@ -26,6 +28,8 @@ function saveItem(){
         title: titleInput.value,
         author: authorInput.value,
         book_type: bookTypeInput.value,
+        inquiry: inquiryInput.value,
+        qty: qtyInput.value,
         csrfmiddlewaretoken: getCSRFTokenValue()
     };
     $.ajax({ type: "POST", url: "/backend/item/save/",
@@ -91,6 +95,14 @@ function onLoadLoadValues(){
         bookTypeInner += `<option value="${i}">`
     };
     bookType.innerHTML = bookTypeInner;
+    // Inquiry
+    let inquiry = document.getElementById('inquiry');
+    let inquiryInner = '';
+    let inquiryArray = inquirys.map(({ no }) => no);
+    for (let i of inquiryArray){
+        inquiryInner += `<option value="${i}">`
+    };
+    inquiry.innerHTML = inquiryInner;
 }onLoadLoadValues();
 
 function titleSelected(){

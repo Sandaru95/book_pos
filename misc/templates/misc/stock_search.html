@@ -1,0 +1,130 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'misc/css/stock_search.css' %}">
+</head>
+
+<body>
+    <div class="input-group">
+        <input required="" type="text" name="text" autocomplete="off" class="input" autofocus oninput="inputted()">
+        <label class="user-label">Keyword</label>
+    </div>
+    <fieldset id="group1">
+        <label for="code_radio">
+            <input type="radio" id="code_radio" name="group1" value="code" onchange="handleChange(this);"> Code
+        </label>
+        <label for="name_radio">
+            <input type="radio" id="name_radio" name="group1" value="name" onchange="handleChange(this);"> Name
+        </label>
+        <label for="publisher_radio">
+            <input type="radio" id="publisher_radio" name="group1" value="publisher" onchange="handleChange(this);">
+            Publisher
+        </label>
+        <label for="qty_radio">
+            <input type="radio" id="qty_radio" name="group1" value="qty" onchange="handleChange(this);"> Qty
+        </label>
+        <label for="price_radio">
+            <input type="radio" id="price_radio" name="group1" value="price" onchange="handleChange(this);"> Price
+        </label>
+    </fieldset>
+    <table id="the-table">
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Publisher</th>
+            <th>Qty</th>
+            <th>Price (Rs.)</th>
+        </tr>
+        <tbody id="the-table-tbody"></tbody>
+    </table>
+    <script>
+        let filterSelected;
+        let items = [
+            {% for item in items %}
+            { 'title': '{{item.book.title}}', 'author': '{{ item.book.author.name }}', 'publisher': '{{ item.book.publisher.name }}', 'book_type': '{{ item.book.book_type.name }}', 'price': '{{ item.book.price }}', 'item_code': '{{ item.book.item_code }}', 'isbn_no': '{{ item.book.isbn_no }}', 'qty': '{{ item.qty }}' },
+            {% endfor %}
+        ];
+        renderTableWithList(items);
+        // Appending the KEYWORD
+        for (let i in items) {
+            let keyword = items[i]['title'] + items[i]['author'] + items[i]['publisher'] + items[i]['item_code'];
+            items[i]['keyword'] = keyword;
+        };
+        function inputted() {
+            const inputBox = document.getElementsByName('text')[0];
+            let inputValue = inputBox.value;
+            let arr1 = [];
+            if (filterSelected) {
+                if (filterSelected == "code") {
+                    for (let item of items) {
+                        if (item['item_code'].toLowerCase().includes(inputValue.toLowerCase())) {
+                            arr1.push(item);
+                        };
+                    };
+                }else if(filterSelected == "name"){
+                    for (let item of items) {
+                        if (item['title'].toLowerCase().includes(inputValue.toLowerCase())) {
+                            arr1.push(item);
+                        };
+                    };
+                }else if(filterSelected == "publisher"){
+                    for (let item of items) {
+                        if (item['publisher'].toLowerCase().includes(inputValue.toLowerCase())) {
+                            arr1.push(item);
+                        };
+                    };
+                }
+                else if(filterSelected == "qty"){
+                    for (let item of items) {
+                        if (item['qty'].toLowerCase().includes(inputValue.toLowerCase())) {
+                            arr1.push(item);
+                        };
+                    };
+                }
+                else if(filterSelected == "price"){
+                    for (let item of items) {
+                        if (item['price'].toLowerCase().includes(inputValue.toLowerCase())) {
+                            arr1.push(item);
+                        };
+                    };
+                }
+
+            } else {
+                for (let item of items) {
+                    if (item['keyword'].toLowerCase().includes(inputValue.toLowerCase())) {
+                        arr1.push(item);
+                    };
+                };
+            };
+            // Render to the front
+            renderTableWithList(arr1);
+        };
+        function handleChange(element) {
+            filterSelected = element.value;
+        };
+        function renderTableWithList(arr1) {
+            const theTableBody = document.getElementById('the-table-tbody');
+            let innerHTML = '';
+
+            for (let item of arr1) {
+                innerHTML += `
+                <tr>
+                <td>${item.item_code}</td>
+                <td>${item.title}</td>
+                <td>${item.publisher}</td>
+                <td>${item.qty}</td>
+                <td>${item.price}</td>
+                </tr>`
+            };
+
+            theTableBody.innerHTML = innerHTML;
+        };
+        document.addEventListener("keypress", e => e.code == "Backquote" ? window.close() : console.log(e.code));
+    </script>
+</body>
+
+</html>
